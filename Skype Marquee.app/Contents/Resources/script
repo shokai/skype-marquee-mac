@@ -1,0 +1,54 @@
+#!/usr/bin/env ruby
+Dir.glob(File.dirname(__FILE__)+'/gems/*').each do |dir|
+  $:.unshift "#{dir}/lib"
+end
+
+require 'applescript'
+
+script =
+'tell application "Skype"
+  activate
+end tell'
+AppleScript.execute(script)
+
+def right
+  script =
+'tell application "System Events"
+  tell application process "Skype"
+    keystroke (ASCII character 30)
+    keystroke (ASCII character 30)
+    keystroke "____"
+    keystroke (ASCII character 13)
+  end tell
+end tell'
+  AppleScript.execute(script)
+end
+
+def left
+  script =
+'tell application "System Events"
+  tell application process "Skype"
+    keystroke (ASCII character 30)
+    keystroke (ASCII character 30)
+    keystroke (ASCII character 127)
+    keystroke (ASCII character 127)
+    keystroke (ASCII character 127)
+    keystroke (ASCII character 127)
+    keystroke (ASCII character 13)
+  end tell
+end tell'
+  AppleScript.execute(script)
+end
+
+
+loop do
+  10.times do
+    right
+    sleep 1
+  end
+
+  10.times do
+    left
+    sleep 1
+  end
+end
